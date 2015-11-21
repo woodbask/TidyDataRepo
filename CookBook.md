@@ -1,5 +1,7 @@
-DATA DICTIONARY 
-Course Project for Getting and Cleaning Data – Tidy file Output
+					DATA DICTIONARY 
+		Course Project for Getting and Cleaning Data – Tidy file Output
+		---------------------------------------------------------------
+
 NOTE: This file discusses only the variables in the tidy output file. For references to source variables, please see /data/README_Source  and /data/features_info files. The abbreviations/notations in variable names are provided at the end of this file.
 
 subjectId [Integer]	2 	

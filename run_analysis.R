@@ -2,10 +2,11 @@ library(sqldf)
 
 # -------  STEP 1
 # First... get the test data in R and merge for subject,activity label, 
-# and remaining 561 data columns. Note that the root working directory
-# contains the data subdirectory which in turn contains the test and train
-# subdirectories for the test and train data. The activity labels and features
-# data files are also in the data directory.
+# and remaining 561 data columns. Note that the working directory should be set
+# to '/data' folder under the root or main directory where this file exists prior to this file
+# execution. The working directory contains the test and train subdirectories for the
+# test and train data where the source test and training data are expected to be. 
+# The activity labels and features data files are also expected to be in the data directory.
 
 testDir <- "./test/"
 setwd(testDir)
@@ -16,8 +17,8 @@ fyTest <- read.table("y_test.txt")
 
 fTestAll <- cbind(fsTest,fyTest,fxTest)
 
-# Second... get the train data in R and merge for subject,actiity label, 
-# and remaining 561 data columns
+# Second... get the train data in R and merge for subject,activity label, 
+# and remaining 561 measurement data columns.
 trainDir <- "../train/"
 setwd(trainDir)
 
@@ -35,12 +36,12 @@ setwd(rootDir)
 
 fFeat <- read.table("features.txt")
 
-#just need the second column for header, remove the first column
+# just need the second column for header, remove the first column
 fFeat2 <- fFeat[,2,drop=FALSE]
 fFeatT <- t(fFeat2)
 
-#append two column headers for subject and activity preceeding 
-#the 561 columns
+# append two column headers for subject and activity identifier  
+# preceeding the 561 columns
 fFeatT <- cbind("subjectId", "activityId", fFeatT)
 
 # Fourth... bind the column header, test, and train data
@@ -51,7 +52,7 @@ names(fAll) <- fFeatT[1,]
 anyNA(fAll)
 
 # from the above step, no missing values were found. No data cleansing needed
-# proceed to next step
+# so proceed to next step.
 
 # -------- STEP 2
 # Extracting only mean and std columns.
@@ -100,6 +101,7 @@ names(fXtracted) <- colnames
 # ------------- STEP 5
 
 # use sqldf to extract the mean values by activity and subject. 
+
 fTidy <- sqldf('select subjectId, activityDesc, 
 avg("tBodyAccMeanXaxis"),      
 avg("tBodyAccMeanYaxis"),        
@@ -141,12 +143,12 @@ avg("tBodyGyroMagMean"),
 avg("tBodyGyroMagStd"),           
 avg("tBodyGyroJerkMagMean"),     
 avg("tBodyGyroJerkMagStd"),       
-avg("fBodyAcc-MeanXaxis"),       
-avg("fBodyAcc-MeanYaxis"),        
-avg("fBodyAcc-MeanZaxis"),       
-avg("fBodyAcc-StdXaxis"),         
-avg("fBodyAcc-StdYaxis"),        
-avg("fBodyAcc-StdZaxis"),         
+avg("fBodyAccMeanXaxis"),       
+avg("fBodyAccMeanYaxis"),        
+avg("fBodyAccMeanZaxis"),       
+avg("fBodyAccStdXaxis"),         
+avg("fBodyAccStdYaxis"),        
+avg("fBodyAccStdZaxis"),         
 avg("fBodyAccJerkMeanXaxis"),   
 avg("fBodyAccJerkMeanYaxis"),    
 avg("fBodyAccJerkMeanZaxis"),   
@@ -174,7 +176,7 @@ order by subjectId, activityId')
 # finally clean up the column headers to remove the
 # open and closed parenthesis introduced by the 
 # sqldf select clause for the 'avg' columns
-# the final name of the 
+
 namesTidy <- names(fTidy)
 namesTidy <- gsub("[[:punct:]]", "", namesTidy)
 #namesTidy <- gsub("Mean", "-Mean", namesTidy)
@@ -188,7 +190,6 @@ names(fTidy) <- namesTidy
 # write contents of the tidy data to a file 
 write.table(fTidy,"../tidy.txt",row.name=FALSE)
 
-df <- read.table("../tidy.txt",sep="",header=TRUE)
 
 
 

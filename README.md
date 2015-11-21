@@ -124,6 +124,6 @@ E. Execution Output
 =========================================================================================================================================================
 Upon exeution of run_analysis.R, an output file called tidy.txt is created in the same folder as run_analysis.R.
 The contents of this file can be viewed in R by running the following commands in sequence:
-> setwd("../")
-> data <- read.table("tidy.txt", header = TRUE)
-> View(data)
+- > setwd("../")
+- > data <- read.table("tidy.txt", header = TRUE)
+- > View(data)
