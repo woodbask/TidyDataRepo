@@ -179,11 +179,6 @@ order by subjectId, activityId')
 
 namesTidy <- names(fTidy)
 namesTidy <- gsub("[[:punct:]]", "", namesTidy)
-#namesTidy <- gsub("Mean", "-Mean", namesTidy)
-#namesTidy <- gsub("Std", "-Std", namesTidy)
-#namesTidy <- gsub("Xaxis", "-Xaxis", namesTidy)
-#namesTidy <- gsub("Yaxis", "-Yaxis", namesTidy)
-#namesTidy <- gsub("Zaxis", "-Zaxis", namesTidy)
 namesTidy <- gsub("avg", "avg_", namesTidy)
 names(fTidy) <- namesTidy
 
