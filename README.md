@@ -47,7 +47,7 @@ source data. Please refer to the '/data/README_Source.md' and '/data/features_in
 
 - 'data/train/Inertial Signals/body_gyro_x_train.txt':
 
-NOTE: The working directory is assumed to be set to '/data/' as per the instructions. The
+NOTE: The working directory is assumed to be set to '/data/' as per the instructions. 
 
 
 B. Explanation of how run_analysis.R works
@@ -59,6 +59,7 @@ For more details on code, please refer to the file itself.
 Libraries inclusion
 ===================
 The only library included is sqldf. 
+NOTE: The sqldf package MUST BE INSTALLED on the user's computer in R, prior to running the run_analysis.R. 
 
 
 STEP 1 of Instruction: Merging the Test and Train datasets to create one dataset
